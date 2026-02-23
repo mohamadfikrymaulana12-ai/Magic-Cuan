@@ -1,0 +1,1060 @@
+<!doctype html>
+<html lang="id" class="h-full">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CUAN DIGITAL By SN Creative</title>
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cdefs%3E%3ClinearGradient id='coinGradient' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%2360a5fa;stop-opacity:1' /%3E%3Cstop offset='50%25' style='stop-color:%233b82f6;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%231e40af;stop-opacity:1' /%3E%3C/linearGradient%3E%3ClinearGradient id='glossGradient' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:white;stop-opacity:0.4' /%3E%3Cstop offset='50%25' style='stop-color:white;stop-opacity:0' /%3E%3Cstop offset='100%25' style='stop-color:white;stop-opacity:0.1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='12' cy='12' r='11' fill='url(%23coinGradient)' /%3E%3Cellipse cx='12' cy='8' rx='8' ry='4' fill='url(%23glossGradient)' /%3E%3Ctext x='12' y='14' font-size='10' font-weight='bold' fill='white' text-anchor='middle' font-family='Arial, sans-serif'%3ERp%3C/text%3E%3C/svg%3E">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap"
+    rel="stylesheet">
+  <style>
+    html,
+    body {
+      box-sizing: border-box;
+      height: 100%;
+      margin: 0;
+      background-color: #f8fafc;
+    }
+
+    * {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    #app-wrapper {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .android-header {
+      background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+      color: white;
+      padding: 16px;
+      padding-bottom: 24px;
+      text-align: center;
+      border-radius: 0 0 32px 32px;
+      box-shadow: 0 10px 30px rgba(30, 58, 138, 0.2);
+    }
+
+    .aesthetic-card {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 24px;
+      padding: 24px;
+      margin: 16px;
+      box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .aesthetic-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 60%);
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .time-display {
+      font-feature-settings: "tnum";
+      font-variant-numeric: tabular-nums;
+    }
+
+    .quote-text {
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .page {
+      display: none;
+      flex: 1;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .page.active {
+      display: flex;
+    }
+
+    .card-item {
+      background: white;
+      border-radius: 20px;
+      padding: 18px 12px;
+      border: 1px solid #f1f5f9;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .card-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.05);
+      border-color: #3b82f6;
+    }
+
+    .card-item:active {
+      transform: scale(0.95);
+    }
+
+    .logo-container {
+      perspective: 1000px;
+      animation: coinBounce 2.5s ease-in-out infinite;
+    }
+
+    @keyframes coinSpin {
+      0% {
+        transform: rotateY(0deg);
+      }
+
+      100% {
+        transform: rotateY(360deg);
+      }
+    }
+
+    @keyframes coinBounce {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    .coin-svg {
+      animation: coinSpin 4s linear infinite;
+      transform-style: preserve-3d;
+      filter: drop-shadow(0 8px 16px rgba(30, 58, 138, 0.3));
+    }
+
+    .subcategory-item,
+    .product-item {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .subcategory-item:hover {
+      border-color: #3b82f6;
+      background: #f0f9ff;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app-wrapper">
+
+    <!-- DASHBOARD -->
+    <div id="page-dashboard" class="page active">
+      <div class="android-header">
+        <div class="flex justify-center mb-4 pt-4">
+          <div
+            class="logo-container w-20 h-20 rounded-full bg-white shadow-xl flex items-center justify-center border-4 border-blue-50">
+            <svg class="coin-svg w-14 h-14" fill="none" viewBox="0 0 24 24">
+              <defs>
+                <linearGradient id="coinGradientMain" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#60a5fa;stop-opacity:1" />
+                  <stop offset="50%" style="stop-color:#3b82f6;stop-opacity:1" />
+                  <stop offset="100%" style="stop-color:#1e40af;stop-opacity:1" />
+                </linearGradient>
+                <linearGradient id="glossGradientMain" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:white;stop-opacity:0.4" />
+                  <stop offset="50%" style="stop-color:white;stop-opacity:0" />
+                  <stop offset="100%" style="stop-color:white;stop-opacity:0.1" />
+                </linearGradient>
+              </defs>
+              <circle cx="12" cy="12" r="10" fill="url(#coinGradientMain)" />
+              <ellipse cx="12" cy="8" rx="8" ry="4" fill="url(#glossGradientMain)" />
+              <text x="12" y="15" font-size="10" font-weight="900" fill="white" text-anchor="middle"
+                font-family="Plus Jakarta Sans">Rp</text>
+            </svg>
+          </div>
+        </div>
+        <h1 class="text-2xl font-black tracking-tight text-white">CUAN DIGITAL</h1>
+        <p class="text-xs font-bold text-blue-100 uppercase tracking-widest mt-1">SN CREATIVE</p>
+        <p class="text-xs text-white/80 mt-3 px-8 text-center">Hasilkan Cuan Dari Produk Digital Siap Jual</p>
+      </div>
+
+      <div class="p-4">
+        <h3 class="text-sm font-extrabold text-slate-800 mb-4 px-2">Fitur Utama</h3>
+        <div class="grid grid-cols-2 gap-4">
+
+          <div onclick="navigateTo('panduan')" class="card-item">
+            <div
+              class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center mb-3 text-white shadow-md">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
+            </div>
+            <span class="text-xs font-bold text-slate-800">Panduan Dasar</span>
+          </div>
+
+          <div onclick="navigateTo('landing')" class="card-item">
+            <div
+              class="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center mb-3 text-white shadow-md">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <span class="text-xs font-bold text-slate-800">Landing Page</span>
+          </div>
+
+          <div onclick="navigateTo('links')" class="card-item">
+            <div
+              class="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center mb-3 text-white shadow-md">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+              </svg>
+            </div>
+            <span class="text-xs font-bold text-slate-800">Link Produk</span>
+          </div>
+
+          <div onclick="navigateTo('affiliate')" class="card-item">
+            <div
+              class="w-12 h-12 rounded-2xl bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center mb-3 text-white shadow-md">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+              </svg>
+            </div>
+            <span class="text-xs font-bold text-slate-800">Afiliasi Tools</span>
+          </div>
+
+          <div onclick="navigateTo('planner')" class="card-item">
+            <div
+              class="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-400 to-cyan-500 flex items-center justify-center mb-3 text-white shadow-md">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+              </svg>
+            </div>
+            <span class="text-xs font-bold text-slate-800">Content Planner</span>
+          </div>
+
+          <div onclick="navigateTo('quiz')" class="card-item">
+            <div
+              class="w-12 h-12 rounded-2xl bg-gradient-to-br from-rose-400 to-red-600 flex items-center justify-center mb-3 text-white shadow-md">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138z" />
+              </svg>
+            </div>
+            <span class="text-xs font-bold text-slate-800">Quiz Strategi</span>
+          </div>
+
+          <div onclick="navigateTo('ai')" class="card-item">
+            <div
+              class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center mb-3 text-white shadow-md">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0114 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+              </svg>
+            </div>
+            <span class="text-xs font-bold text-slate-800">Konsultasi AI</span>
+          </div>
+
+          <div onclick="window.open('https://chat.whatsapp.com/CsXiLF1VqwZJdjYRoc6ifA', '_blank')" class="card-item">
+            <div
+              class="w-12 h-12 rounded-2xl bg-gradient-to-br from-green-400 to-emerald-600 flex items-center justify-center mb-3 text-white shadow-md">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+              </svg>
+            </div>
+            <span class="text-xs font-bold text-slate-800">Grup WA</span>
+          </div>
+        </div>
+
+        <div class="aesthetic-card mt-8">
+          <div class="flex justify-between items-start mb-6">
+            <div class="flex flex-col">
+              <span id="date-display"
+                class="text-xs font-bold text-slate-400 uppercase tracking-widest leading-none mb-1"></span>
+              <span id="time-display" class="text-3xl font-black text-slate-800 time-display leading-none"></span>
+            </div>
+            <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-500">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="relative pt-6 border-t border-slate-100">
+            <svg class="absolute top-4 left-0 w-8 h-8 text-slate-100 -z-10 transform -translate-x-2 -translate-y-2"
+              fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11C14.017 11.5523 13.5693 12 13.017 12H12.017V5H22.017V15C22.017 18.3137 19.3307 21 16.017 21H14.017ZM5.0166 21L5.0166 18C5.0166 16.8954 5.91203 16 7.0166 16H10.0166C10.5689 16 11.0166 15.5523 11.0166 15V9C11.0166 8.44772 10.5689 8 10.0166 8H6.0166C5.46432 8 5.0166 8.44772 5.0166 9V11C5.0166 11.5523 4.56889 12 4.0166 12H3.0166V5H13.0166V15C13.0166 18.3137 10.3303 21 7.0166 21H5.0166Z">
+              </path>
+            </svg>
+            <p id="daily-motivation" class="quote-text text-sm font-medium leading-relaxed relative z-0 italic"></p>
+            <p class="text-[10px] text-slate-400 font-bold mt-3 uppercase tracking-widest text-right">Inspirasi Harian
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANDUAN PAGE -->
+    <div id="page-panduan" class="page">
+      <div class="android-header flex items-center">
+        <button onclick="navigateTo('dashboard')" class="mr-4"><svg class="w-6 h-6 text-white" fill="none"
+            stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg></button>
+        <h2 class="text-lg font-bold">Panduan Dasar</h2>
+      </div>
+      <div class="p-4" id="panduan-container"></div>
+    </div>
+
+    <!-- LINKS PAGE -->
+    <div id="page-links" class="page">
+      <div class="android-header flex items-center">
+        <button onclick="navigateTo('dashboard')" class="mr-4"><svg class="w-6 h-6" fill="none" stroke="currentColor"
+            viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg></button>
+        <h2 class="text-lg font-bold text-white">Katalog Produk</h2>
+      </div>
+      <div class="p-4" id="links-container"></div>
+    </div>
+
+    <!-- QUIZ PAGE -->
+    <div id="page-quiz" class="page">
+      <div class="android-header flex items-center">
+        <button onclick="navigateTo('dashboard')" class="mr-4"><svg class="w-6 h-6" fill="none" stroke="currentColor"
+            viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg></button>
+        <h2 class="text-lg font-bold">Quiz Strategi</h2>
+      </div>
+      <div id="quiz-body" class="p-6 flex-grow flex flex-col bg-slate-50"></div>
+    </div>
+
+    <div id="page-affiliate" class="page">
+      <div class="android-header flex items-center">
+        <button onclick="navigateTo('dashboard')" class="mr-4"><svg class="w-6 h-6" fill="none" stroke="currentColor"
+            viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg></button>
+        <h2 class="text-lg font-bold">Afiliasi Tools</h2>
+      </div>
+      <div class="p-4">
+        <!-- Education Section -->
+        <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-6">
+          <h3 class="text-xs font-bold text-blue-800 mb-2 flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            Tutorial Cara Tambah Produk
+          </h3>
+          <ol class="text-[10px] text-blue-700 leading-relaxed list-decimal pl-4 space-y-1">
+            <li>Buka <b>Lynk.id</b></li>
+            <li>Pilih <b>My Link</b> > <b>Add New Block</b></li>
+            <li>Pilih <b>Affiliate Product</b></li>
+            <li>Cari Produk dengan nama yang sesuai di bawah ini.</li>
+          </ol>
+        </div>
+
+        <div id="affiliate-container"></div>
+      </div>
+    </div>
+
+    <div id="page-planner" class="page">
+      <div class="android-header flex items-center"><button onclick="navigateTo('dashboard')" class="mr-4"><svg
+            class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg></button>
+        <h2 class="text-lg font-bold">Planner</h2>
+      </div>
+      <div class="p-6">
+        <div class="bg-teal-50 rounded-3xl p-6 border border-teal-100 mb-8">
+          <h3 class="text-lg font-black text-teal-800 mb-4">Content Planner Specialist</h3>
+          <p class="text-xs text-teal-600 mb-6 font-medium">Strategi konten media sosial dari AI ahli kami.</p>
+
+          <div class="space-y-6">
+            <!-- Apa yang Anda Dapatkan? -->
+            <div class="bg-white p-4 rounded-2xl border border-teal-100">
+              <h4 class="text-sm font-bold text-teal-900 mb-3 flex items-center gap-2">
+                <span class="text-lg">🎁</span> Apa yang Anda Dapatkan?
+              </h4>
+              <ul class="space-y-3">
+                <li class="flex gap-3">
+                  <div class="w-1.5 h-1.5 rounded-full bg-teal-500 mt-1.5 flex-shrink-0"></div>
+                  <div>
+                    <h5 class="text-xs font-bold text-slate-800">Kalender Konten Bulanan</h5>
+                    <p class="text-[10px] text-slate-500 leading-relaxed">Rencana konten terstruktur 30 hari dengan tema
+                      & timing.</p>
+                  </div>
+                </li>
+                <li class="flex gap-3">
+                  <div class="w-1.5 h-1.5 rounded-full bg-teal-500 mt-1.5 flex-shrink-0"></div>
+                  <div>
+                    <h5 class="text-xs font-bold text-slate-800">Ide Konten Unlimited</h5>
+                    <p class="text-[10px] text-slate-500 leading-relaxed">Ribuan ide konten fresh sesuai niche &
+                      audience Anda.</p>
+                  </div>
+                </li>
+                <li class="flex gap-3">
+                  <div class="w-1.5 h-1.5 rounded-full bg-teal-500 mt-1.5 flex-shrink-0"></div>
+                  <div>
+                    <h5 class="text-xs font-bold text-slate-800">Copywriting Optimization</h5>
+                    <p class="text-[10px] text-slate-500 leading-relaxed">Caption, hashtag, & CTA untuk maksimalkan
+                      engagement.</p>
+                  </div>
+                </li>
+                <li class="flex gap-3">
+                  <div class="w-1.5 h-1.5 rounded-full bg-teal-500 mt-1.5 flex-shrink-0"></div>
+                  <div>
+                    <h5 class="text-xs font-bold text-slate-800">Strategi Engagement & Growth</h5>
+                    <p class="text-[10px] text-slate-500 leading-relaxed">Teknik proven tingkatkan followers & brand
+                      awareness.</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Bagaimana Cara Kerjanya? -->
+            <div>
+              <h4 class="text-sm font-bold text-teal-900 mb-3 ml-2">Bagaimana Cara Kerjanya?</h4>
+              <div class="grid grid-cols-1 gap-3">
+                <!-- Step 1 -->
+                <div class="flex items-center gap-3 bg-white p-3 rounded-xl border border-teal-50">
+                  <div
+                    class="w-6 h-6 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center font-bold text-xs flex-shrink-0">
+                    1</div>
+                  <div>
+                    <h5 class="text-[11px] font-bold text-slate-800">Jelaskan Niche</h5>
+                    <p class="text-[10px] text-slate-500 leading-relaxed">Ceritakan industri, target market & tujuan
+                      konten.</p>
+                  </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="flex items-center gap-3 bg-white p-3 rounded-xl border border-teal-50">
+                  <div
+                    class="w-6 h-6 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center font-bold text-xs flex-shrink-0">
+                    2</div>
+                  <div>
+                    <h5 class="text-[11px] font-bold text-slate-800">Dapatkan Rencana</h5>
+                    <p class="text-[10px] text-slate-500 leading-relaxed">AI beri kalender, ide & strategi posting
+                      optimal.</p>
+                  </div>
+                </div>
+                <!-- Step 3 -->
+                <div class="flex items-center gap-3 bg-white p-3 rounded-xl border border-teal-50">
+                  <div
+                    class="w-6 h-6 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center font-bold text-xs flex-shrink-0">
+                    3</div>
+                  <div>
+                    <h5 class="text-[11px] font-bold text-slate-800">Optimasi & Diskusi</h5>
+                    <p class="text-[10px] text-slate-500 leading-relaxed">Minta detail lebih, tone adjustment atau
+                      variasi.</p>
+                  </div>
+                </div>
+                <!-- Step 4 -->
+                <div class="flex items-center gap-3 bg-white p-3 rounded-xl border border-teal-50">
+                  <div
+                    class="w-6 h-6 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center font-bold text-xs flex-shrink-0">
+                    4</div>
+                  <div>
+                    <h5 class="text-[11px] font-bold text-slate-800">Implement & Monitor</h5>
+                    <p class="text-[10px] text-slate-500 leading-relaxed">Eksekusi konten & track performance.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-teal-600 rounded-3xl p-8 text-white mb-6 shadow-lg">
+          <h3 class="text-xl font-bold mb-2">Content Planner Specialist</h3>
+          <p class="text-sm opacity-90 leading-relaxed">Strategi konten 30 hari untuk jualan produk digital Anda.</p>
+        </div><a href="https://chatgpt.com/g/g-698878b3c08081918e9bd2a668319b25-konten-planner-spesialis-pro"
+          target="_blank"
+          class="block w-full text-center bg-teal-600 text-white font-bold py-4 rounded-2xl shadow-lg">Buka Planner</a>
+      </div>
+    </div>
+    <div id="page-ai" class="page">
+      <div class="android-header flex items-center"><button onclick="navigateTo('dashboard')" class="mr-4"><svg
+            class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg></button>
+        <h2 class="text-lg font-bold">Konsultasi AI</h2>
+      </div>
+      <div class="p-6">
+        <div class="bg-amber-50 rounded-3xl p-6 border border-amber-100 mb-8">
+          <h3 class="text-lg font-black text-amber-800 mb-4">Product Digital Spesialist</h3>
+          <p class="text-xs text-amber-600 mb-6 font-medium">Strategi bisnis digital dari AI ahli kami.</p>
+
+          <div class="space-y-6">
+            <!-- Apa yang Anda Dapatkan? -->
+            <div class="bg-white p-4 rounded-2xl border border-amber-100">
+              <h4 class="text-sm font-bold text-amber-900 mb-3 flex items-center gap-2">
+                <span class="text-lg">🎁</span> Apa yang Anda Dapatkan?
+              </h4>
+              <ul class="space-y-3">
+                <li class="flex gap-3">
+                  <div class="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 flex-shrink-0"></div>
+                  <div>
+                    <h5 class="text-xs font-bold text-slate-800">Strategi Produk Digital</h5>
+                    <p class="text-[10px] text-slate-500 leading-relaxed">Panduan lengkap membuat & menjual produk
+                      digital yang menguntungkan.</p>
+                  </div>
+                </li>
+                <li class="flex gap-3">
+                  <div class="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 flex-shrink-0"></div>
+                  <div>
+                    <h5 class="text-xs font-bold text-slate-800">Analisis Pasar & Kompetitor</h5>
+                    <p class="text-[10px] text-slate-500 leading-relaxed">Temukan peluang niche yang belum banyak
+                      dimanfaatkan.</p>
+                  </div>
+                </li>
+                <li class="flex gap-3">
+                  <div class="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 flex-shrink-0"></div>
+                  <div>
+                    <h5 class="text-xs font-bold text-slate-800">Strategi Marketing & Sales</h5>
+                    <p class="text-[10px] text-slate-500 leading-relaxed">Taktik proven untuk meningkatkan penjualan &
+                      konversi.</p>
+                  </div>
+                </li>
+                <li class="flex gap-3">
+                  <div class="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 flex-shrink-0"></div>
+                  <div>
+                    <h5 class="text-xs font-bold text-slate-800">Troubleshooting Bisnis</h5>
+                    <p class="text-[10px] text-slate-500 leading-relaxed">Solusi cepat untuk masalah bisnis digital
+                      Anda.</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Bagaimana Cara Kerjanya? -->
+            <div>
+              <h4 class="text-sm font-bold text-amber-900 mb-3 ml-2">Bagaimana Cara Kerjanya?</h4>
+              <div class="grid grid-cols-1 gap-3">
+                <!-- Step 1 -->
+                <div class="flex items-center gap-3 bg-white p-3 rounded-xl border border-amber-50">
+                  <div
+                    class="w-6 h-6 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-xs flex-shrink-0">
+                    1</div>
+                  <div>
+                    <h5 class="text-[11px] font-bold text-slate-800">Jelaskan Tantangan</h5>
+                    <p class="text-[10px] text-slate-500 leading-relaxed">Ceritakan masalah/goal bisnis Anda ke AI.</p>
+                  </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="flex items-center gap-3 bg-white p-3 rounded-xl border border-amber-50">
+                  <div
+                    class="w-6 h-6 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-xs flex-shrink-0">
+                    2</div>
+                  <div>
+                    <h5 class="text-[11px] font-bold text-slate-800">Dapatkan Analisis</h5>
+                    <p class="text-[10px] text-slate-500 leading-relaxed">AI memberi insight, strategi & actionable
+                      steps.</p>
+                  </div>
+                </div>
+                <!-- Step 3 -->
+                <div class="flex items-center gap-3 bg-white p-3 rounded-xl border border-amber-50">
+                  <div
+                    class="w-6 h-6 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-xs flex-shrink-0">
+                    3</div>
+                  <div>
+                    <h5 class="text-[11px] font-bold text-slate-800">Implementasi</h5>
+                    <p class="text-[10px] text-slate-500 leading-relaxed">Terapkan & diskusikan terus perkembangannya.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-amber-500 rounded-3xl p-8 text-white mb-6 shadow-lg">
+          <h3 class="text-xl font-bold mb-2">Mentor Bisnis Digital</h3>
+          <p class="text-sm opacity-90 leading-relaxed">Konsultasi strategi jualan produk digital siap jual.</p>
+        </div><a href="https://chatgpt.com/g/g-6986d327421c8191956a0a9b5728b7f8-mentor-product-digital-spesialist"
+          target="_blank"
+          class="block w-full text-center bg-amber-500 text-white font-bold py-4 rounded-2xl shadow-lg">Mulai
+          Konsultasi</a>
+      </div>
+    </div>
+    <div id="page-landing" class="page">
+      <div class="android-header flex items-center"><button onclick="navigateTo('dashboard')" class="mr-4"><svg
+            class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg></button>
+        <h2 class="text-lg font-bold">Landing Page</h2>
+      </div>
+      <div class="p-6">
+        <div class="bg-indigo-50 rounded-3xl p-6 border border-indigo-100 mb-8">
+          <h3 class="text-lg font-black text-indigo-800 mb-4">Buat Landing Page Profesional</h3>
+          <p class="text-xs text-indigo-600 mb-6 font-medium">Dengan bantuan AI, buat landing page yang mengkonversi
+            dalam 5 langkah mudah:</p>
+
+          <div class="space-y-6">
+            <!-- Step 1 -->
+            <div class="flex gap-4">
+              <div
+                class="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-sm">
+                1</div>
+              <div>
+                <h4 class="text-sm font-bold text-indigo-900 mb-1">Tulis Kebutuhan</h4>
+                <p class="text-[11px] text-slate-600 leading-relaxed mb-2">Jelaskan tujuan landing page Anda. Misal:
+                  "Jual ebook copywriting".</p>
+                <div class="bg-white p-3 rounded-xl border border-indigo-100 text-[10px] text-slate-500">
+                  <span class="font-bold text-indigo-500">💡 Tips Prompt:</span><br>
+                  • Produk apa yang dijual?<br>
+                  • Target audience siapa?<br>
+                  • Benefit/keunggulan apa?
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="flex gap-4">
+              <div
+                class="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-sm">
+                2</div>
+              <div>
+                <h4 class="text-sm font-bold text-indigo-900 mb-1">Diskusi & Penyesuaian</h4>
+                <p class="text-[11px] text-slate-600 leading-relaxed">AI memberi draft. Jika belum pas, diskusikan. Jika
+                  sudah oke, ketik <span class="font-bold text-indigo-700">"buat sekarang"</span>.</p>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="flex gap-4">
+              <div
+                class="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-sm">
+                3</div>
+              <div>
+                <h4 class="text-sm font-bold text-indigo-900 mb-1">Dapatkan Copywriting</h4>
+                <p class="text-[11px] text-slate-600 leading-relaxed">AI akan memberikan Judul, Deskripsi, dan Call To
+                  Action (CTA) yang final.</p>
+              </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="flex gap-4">
+              <div
+                class="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-sm">
+                4</div>
+              <div>
+                <h4 class="text-sm font-bold text-indigo-900 mb-1">Penyesuaian Akhir</h4>
+                <p class="text-[11px] text-slate-600 leading-relaxed mb-2">Kurang pendek? Kurang santai? Minta revisi ke
+                  AI.</p>
+                <div class="bg-white p-3 rounded-xl border border-indigo-100 text-[10px] text-slate-500 italic">
+                  "Buat lebih pendek", "Ganti tone jadi casual", "Tambah benefit lain"
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="flex gap-4">
+              <div
+                class="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-sm">
+                5</div>
+              <div>
+                <h4 class="text-sm font-bold text-indigo-900 mb-1">Eksekusi</h4>
+                <p class="text-[11px] text-slate-600 leading-relaxed mb-2">Pilih cara pakai copywriting-nya:</p>
+                <div class="grid grid-cols-1 gap-2">
+                  <div class="bg-white p-2 rounded-lg border border-indigo-100 text-[10px]">
+                    🔗 <span class="font-bold">Ke Lynk.id:</span> Paste teks ke Lynk.id, tambah foto/desain.
+                  </div>
+                  <div class="bg-white p-2 rounded-lg border border-indigo-100 text-[10px]">
+                    💻 <span class="font-bold">Minta HTML:</span> Minta AI buatkan file HTML siap pakai.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-indigo-600 rounded-3xl p-8 text-white mb-6 shadow-lg text-center">
+          <h3 class="text-xl font-bold mb-4">Web Builder AI</h3>
+          <p class="text-sm opacity-90 mb-8">Bikin copywriting landing page otomatis.</p><a
+            href="https://chatgpt.com/g/g-6986bdb92e988191a7965320f81b3643-master-spesialis-landing-page"
+            target="_blank" class="inline-block bg-white text-indigo-600 font-bold py-4 px-10 rounded-2xl">Mulai
+            Sekarang</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // --- DATABASE ---
+    const panduanData = {
+      'Sistem & Platform': [
+        { name: 'Cara Buat Akun Lynk ID', id: 'wj82KnYA-wY' },
+        { name: 'Cara Menambah Produk', id: 'U35YxRn3-hY' },
+        { name: 'Setting Pembayaran', id: 'g37GPuW08Uo' }
+      ],
+      'Strategi Jualan': [
+        { name: 'Iklan Meta Ads 2025', id: 'NjQAwrFlGJ8' },
+        { name: 'Desain Konten Canva', id: 'RVJpLCEWtUA' }
+      ]
+    };
+
+    // Fitur Katalog Produk telah dikosongkan sesuai permintaan
+    const linksData = {
+      'EDUKASI & ANAK': {
+        color: '#f59e0b',
+        icon: '📚',
+        items: [
+          { name: '48 Buku Cerita B.Inggris Bisa Diedit', url: 'https://drive.google.com/file/d/13J6yOoiUiIwp7sK2r-13zI36zKQuV9_9/view' },
+          { name: '70+ Worksheet Belajar Baca B.Inggris Untuk Anak', url: 'https://drive.google.com/drive/folders/1hg_-b2xUUqvXdoXQ9MbM3XoxeX5l1HDj' },
+          { name: '45+ Halaman Aktivitas Natal Untuk Anak', url: 'https://www.canva.com/design/DAF1m0ImRBc/rBH2tWdVElGp1jeIZUJOXw/view?utm_content=DAF1m0ImRBc&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink&mode=preview' },
+          { name: '49+ Mewarnai Alfabet Bundle', url: 'https://drive.google.com/drive/folders/13Bb6SGaqDwQNOhkiFvuBBvdU00taA1Mf' },
+          { name: 'Buku Aktivitas dan Mewarnai Hari Cinta', url: 'https://www.canva.com/design/DAF74rDpwYg/UnFue53hhH5_hOzFTGNM3w/view?utm_content=DAF74rDpwYg&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink&mode=preview' },
+          { name: '100 Video Cerita Anak Bhs Indonesia', url: 'https://drive.google.com/drive/u/3/folders/1NUshLSjn3ADCTro8tSy3KBLixUv6GUxf' },
+          { name: '12.000+ Worksheet umum & b.inggris', url: 'https://drive.google.com/drive/folders/1MWlqhVqfjKrCAbhjqr5BPd_-dzzK9V0R' },
+          { name: '1000+ Worksheet anak muslim premium', url: 'https://drive.google.com/drive/folders/1H44EMa8F0QcEL9EqMuH3Td0PZCpf5j3u' },
+          { name: '1000+ worksheet anak umum', url: 'https://drive.google.com/drive/folders/1E9k80Py2YbpSdN4hVMfqDlXIJDbHuixc' },
+          { name: '1000 lembar printable anak muslim', url: 'https://drive.google.com/drive/folders/1AyjlbGyfaa231aNquXW-AHsA9I_k6KDm' }
+        ]
+      },
+      'TEMPLATE & KONTEN VISUAL': {
+        color: '#8b5cf6',
+        icon: '🎨',
+        items: [
+          { name: '20+ Finance Social Media Posts', url: 'https://www.canva.com/design/DAGSSKhRum0/sesUclbzYyTSUDrktkYrHQ/view?utm_content=DAGSSKhRum0&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink&mode=preview' },
+          { name: '82 Halaman Template Ebook & Majalah', url: 'https://www.canva.com/design/DAGWhWbP_SI/Q-sKDZpbPIYXWchZNz_IfA/view?utm_content=DAGWhWbP_SI&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink&mode=preview' },
+          { name: '300 Template Konten Medsos Canva', url: 'https://drive.google.com/file/d/1YXpsdZNRgzKCYO2-lOyTl2UJA2axY6md/view' },
+          { name: 'General Business Instagram Templates', url: 'https://www.canva.com/design/DAF1Oav2n4g/UNF1DnHV9F5e5ibHBlwBMA/view?utm_content=DAF1Oav2n4g&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink&mode=preview' },
+          { name: 'Creative Business Instagram Feed', url: 'https://www.canva.com/design/DAF1Oas_e8Y/3W6p9l_U9F5e5ibHBlwBMA/view?utm_content=DAF1Oas_e8Y&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink&mode=preview' },
+          { name: 'Social Media post planer', url: 'https://www.canva.com/design/DAF9hS21aLg/8qQqjqye0aNblDkX9oAt7g/view?utm_content=DAF9hS21aLg&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink&mode=preview' },
+          { name: 'Stunning Nature Videos Reels', url: 'https://www.canva.com/design/DAGNwT5b3H4/_Q95p_aOd0LnFcujy0FNfA/view?utm_content=DAGNwT5b3H4&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink&mode=preview' },
+          { name: 'Bright Luxury Instagram Stories', url: 'https://drive.google.com/file/d/1nODH3DqDkuXdsX9mS6FpLLAuu5V5XWFs/view?usp=sharing' },
+          { name: '40 Reel Covers', url: 'https://drive.google.com/file/d/1FbuG46OduPoEOpDoC0AUffgHN6gFnhsw/view?usp=sharing' },
+          { name: '30 Motivational Aesthetic Reels', url: 'https://drive.google.com/file/d/1KIpRJENJjFXVX8nIzzq2Km0cQ127hpL4/view?usp=sharing' },
+          { name: '10.000+ Vector Icons Bundle', url: 'https://drive.google.com/drive/folders/1pvC-qOXpCvD-tcVNEDtfRFeIUQA_WJZa' },
+          { name: '30 Wordpress Theme Premium', url: 'https://drive.google.com/open?id=13QQdAJgoIkal4DR_EBgbl05SZAOzYQEO' },
+          { name: 'Nano Cartoon Character', url: 'https://drive.google.com/drive/u/3/folders/1ioSRGAG6S8p4n6ubIpHJ50v8ijz-FVKd' }
+        ]
+      },
+      'BISNIS & MARKETING': {
+        color: '#f43f5e',
+        icon: '📈',
+        items: [
+          { name: '1000 Ide Produk Digital', url: 'https://drive.google.com/file/d/1sMifdrNxyrhe6LAdsHoP1fVVNtHwsLC4/view' },
+          { name: 'Ebook Content Marketing', url: 'https://drive.google.com/drive/u/0/folders/18RWdPcUanx1z6H-f4yeL5n97cCuyxJAm' },
+          { name: 'Ebook Affiliate Tiktok', url: 'https://drive.google.com/drive/u/3/folders/1RYjTRmBxuYmXCe-a3TxaFJG0GE6x6bty' },
+          { name: '7.500 Konten Video Affiliate', url: 'https://drive.google.com/drive/folders/1sGGjYQjp2SQzJ0bXSUPPZf_p-fCujJTd' },
+          { name: 'Ebook 1 Juta Pertama dari LYNK ID', url: 'https://drive.google.com/drive/u/0/folders/1TM_JbD2999exR49GSYPMseHPqb-TkhjC' },
+          { name: 'Ebook Cara Gila Banjir Orderan', url: 'https://drive.google.com/drive/u/3/folders/1RA-JZQ-K_6ZyD7DBaxx1paOLpy0TQh8e' },
+          { name: 'Ebook Tembus 100 Juta Dengan FB Gratisan', url: 'https://drive.google.com/file/d/1I6PgjIgzD6fD-413ssVdtlAxJgZSUsuU/view' },
+          { name: '50 Contoh Copywriting Iklan FB Ads', url: 'https://drive.google.com/drive/u/3/folders/1RA-JZQ-K_6ZyD7DBaxx1paOLpy0TQh8e' },
+          { name: 'Template Landing Page Konversi Tinggi', url: 'https://drive.google.com/drive/u/3/folders/1RA-JZQ-K_6ZyD7DBaxx1paOLpy0TQh8e' },
+          { name: '280 EBook Bisnis Online', url: 'https://drive.google.com/drive/u/3/folders/1mHghHfi6T1ZAWTYMhO3MDBaaBtfmsEhC' },
+          { name: 'Mahir Affilliate Marketing', url: 'https://drive.google.com/file/d/1-cldjiH9UsfIAIeTlnNXodIei4-b4BbX/view' },
+          { name: 'Mahir Sosial Media Marketing', url: 'https://drive.google.com/drive/folders/11c5i2DHEvixo04uGrVAnT_dPqawN47RI' }
+        ]
+      },
+      'E-COURSE & TUTORIAL': {
+        color: '#06b6d4',
+        icon: '🎓',
+        items: [
+          { name: '6.000 Faceless Aesthetic Video', url: 'https://drive.google.com/drive/u/3/folders/1hWAQsLJbbQ-FAr4Zxqt60qeI6Tz3yixO' },
+          { name: '30.000 Bank konten video', url: 'https://drive.google.com/drive/folders/1JFZxcjruCu0Sc_2RKX2NNXQ1YVPihlkG' },
+          { name: 'Kelas facebook pro', url: 'https://drive.google.com/drive/u/3/folders/1-3QwsLBeF4Uld5mmAU_VhQ9v0bFJvZxQ' },
+          { name: '50 ECourse Digital Marketing', url: 'https://drive.google.com/drive/u/0/folders/17prCtQGij_EGh_6sCjZvhlnvgOX_KijI' }
+        ]
+      },
+      'PLANNER & PRODUKTIVITAS': {
+        color: '#10b981',
+        icon: '📅',
+        items: [
+          { name: '30 Day Printable Guided Journal', url: 'https://www.canva.com/design/DAF5WZVv0nM/go92BvPmu7PxUcNyoIeoDg/view?utm_content=DAF5WZVv0nM&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink&mode=preview' },
+          { name: '8 Lifestyle Google Sheet Bundle', url: 'https://drive.google.com/drive/folders/1Go2yMHMEIArDxzFTJiPR9uBo5-arV-Sh' },
+          { name: 'Digital Product Planner', url: 'https://www.canva.com/design/DAF6wFMUePY/upE6FHcgPob7BJxcwEHC6A/view?utm_content=DAF6wFMUePY&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink&mode=preview' },
+          { name: 'Printable Tracker Bundle', url: 'https://www.canva.com/design/DAF6ofd2VF8/tCWxG--lrOXH3OB-fPuv1w/view?utm_content=DAF6ofd2VF8&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink&mode=preview' },
+          { name: 'Daily Life Planner, Digital Planner', url: 'https://www.canva.com/design/DAF7atJsoMs/o7tGSgLb_9rtbSgiXYJ7_w/view?utm_content=DAF7atJsoMs&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink&mode=preview' },
+          { name: '150+ Rumus Excel Kantoran', url: 'https://drive.google.com/drive/folders/1-3QwsLBeF4Uld5mmAU_VhQ9v0bFJvZxQ' }
+        ]
+      },
+      'E-BOOK STRATEGI': {
+        color: '#3b82f6',
+        icon: '📖',
+        items: [
+          { name: 'Ebook Chatting Lalu Closing', url: 'https://drive.google.com/drive/u/0/folders/18RWdPcUanx1z6H-f4yeL5n97cCuyxJAm' },
+          { name: 'Ebook 15 Tips Dikejar Closingan', url: 'https://drive.google.com/drive/u/0/folders/18RWdPcUanx1z6H-f4yeL5n97cCuyxJAm' },
+          { name: 'Ebook Panduan Dapat 1000 Kontak WA', url: 'https://drive.google.com/drive/u/0/folders/18RWdPcUanx1z6H-f4yeL5n97cCuyxJAm' },
+          { name: 'Ebook strategi membuat killer kontent', url: 'https://drive.google.com/drive/u/3/folders/1RA-JZQ-K_6ZyD7DBaxx1paOLpy0TQh8e' }
+        ]
+      },
+      'BONUS': {
+        color: '#ec4899',
+        icon: '🎁',
+        items: [
+          { name: 'Kumpulan Kisah Islami & Video', url: 'https://track.pstmrk.it/3s/drive.google.com%2Fdrive%2Ffolders%2F1T4JtnB5lZnkytkaNYCSBKxwrbcIMIieB/3OSl/xxHDAQ/AQ/58b2caf4-bde4-4e15-8ce4-64af88cee58c/1/MTJ1LaG5aY' },
+          { name: 'Bahan Promosi', url: 'https://drive.google.com/drive/folders/19-F4PHWxhYKABteqp5qnRAfKm-PxJPhN' }
+        ]
+      },
+      'TESTIMONI': {
+        color: '#fcd34d',
+        icon: '⭐',
+        items: [
+          { name: 'Bukti Testimoni Member', url: 'https://drive.google.com/drive/folders/1WN9l1nXFBlmIyUlWuQzyae8z2dYiqJhd?usp=sharing' }
+        ]
+      },
+      'Download Semua': {
+        color: '#4f46e5',
+        icon: '⬇️',
+        items: [
+          { name: 'Akses Produk 1 - 707 + Bonus', url: 'https://docs.google.com/spreadsheets/d/1yl-kNr3wb8-iMMekcjjanaIdQ1lewz0f/edit?usp=drive_link&ouid=104688077123532772643&rtpof=true&sd=true' }
+        ]
+      }
+    };
+
+    const affiliateData = [
+      { name: 'Magic Tools Content || Tools All in One untuk Konten', icon: '<svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>', tag: 'Content', desc: '', commission: '40', url: 'https://lynk.id/fikry.sn/eq83jgr0mmz6' },
+      { name: 'AI Studio Labs || Kreasi Foto & Vidio tanpa Batas || Tersedia Paket Bundling', icon: '<svg class="w-6 h-6 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>', tag: 'Desain', desc: '', commission: '40', url: 'https://lynk.id/fikry.sn/pr33xg5my83e' },
+      { name: 'Voice Over Studio Pro || 3 Bahasa Full Costum Profesional', icon: '<svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>', tag: 'Voice', desc: '', commission: '30', url: 'https://lynk.id/fikry.sn/dmjyx305j8qr' },
+      { name: 'Magic Flow Generator || Buat 9 Foto Prodak + Promt UGC', icon: '<svg class="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>', tag: 'UGC', desc: '', commission: '30', url: 'https://lynk.id/fikry.sn/oj7414nk09k6' },
+      { name: 'Asisten Guru Cerdas AI || Revolusi Administrasi & Kualitas Guru dengan Asisten Cerdas AI', icon: '<svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>', tag: 'Edu', desc: '', commission: '35', url: 'https://lynk.id/fikry.sn/kyro4jyxj7ox' },
+      { name: 'Asisten Dosen AI - Solusi Akademik Cerdas', icon: '<svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"/></svg>', tag: 'Edu', desc: '', commission: '40', url: 'https://lynk.id/fikry.sn/q4pj83zrgpgk' }
+    ];
+
+    const quizData = [
+      { q: "Apa langkah awal paling utama sebelum memproduksi produk digital?", options: ["Desain logo premium", "Melakukan riset pasar & identifikasi masalah", "Membeli hosting mahal", "Membuat grup WhatsApp", "Mempekerjakan admin"], correct: 1 },
+      { q: "Apa fungsi utama dari sebuah 'Lead Magnet'?", options: ["Mendapatkan untung langsung", "Memperpanjang teks promosi", "Membangun database calon pembeli", "Mengurangi biaya iklan", "Menambah followers TikTok"], correct: 2 },
+      { q: "Dalam copywriting, apa yang dimaksud dengan 'Headline'?", options: ["Bagian penutup halaman", "Nama kreator produk", "Kalimat penarik perhatian pertama", "Daftar isi produk", "Link menuju pembayaran"], correct: 2 },
+      { q: "Strategi 'Tripwire' bertujuan untuk...", options: ["Menjual produk termahal", "Membangun kepercayaan transaksi awal", "Menjebak pembeli agar refund", "Menutup akun kompetitor", "Memperbanyak testimoni palsu"], correct: 1 },
+      { q: "Mengapa 'Social Proof' (testimoni) sangat krusial?", options: ["Biar website penuh", "Hanya formalitas jualan", "Membangun kepercayaan dan kredibilitas", "Menakuti kompetitor", "Biar terlihat seperti orang kaya"], correct: 2 },
+      { q: "Apa yang dimaksud dengan 'Upselling'?", options: ["Memberikan diskon besar", "Menawarkan produk lebih premium", "Menjual produk secara paksa", "Menghapus stok lama", "Menaikkan harga mendadak"], correct: 1 },
+      { q: "Manakah platform terbaik untuk 'Link-in-Bio' jualan saat ini?", options: ["Facebook Profile", "Lynk.id / Gumroad", "MS Word Online", "Notepad Cloud", "Instagram Feed"], correct: 1 },
+      { q: "Apa itu 'Niche' dalam bisnis digital?", options: ["Harga produk yang murah", "Nama merek yang keren", "Segmen pasar yang spesifik", "Cara membalas chat", "Bonus tambahan produk"], correct: 2 },
+      { q: "Strategi 'Retargeting' iklan menyasar kepada siapa?", options: ["Orang yang tidak punya internet", "Kompetitor bisnis sejenis", "Orang yang sudah berkunjung tapi belum beli", "Anak kecil", "Follower artis ternama"], correct: 2 },
+      { q: "Apa kegunaan 'Urgency' (Keterbatasan) dalam penawaran?", options: ["Memperlambat loading web", "Mendorong keputusan beli lebih cepat", "Menurunkan nilai produk", "Biar terlihat sombong", "Menambah jumlah bonus"], correct: 1 },
+      { q: "AIDA adalah struktur copywriting, kepanjangannya adalah...", options: ["Audit, Input, Detail, Ads", "Attention, Interest, Desire, Action", "Area, Info, Data, Asset", "Action, Interaction, Digital, Ads", "Audit, Interest, Desire, Audit"], correct: 1 },
+      { q: "Apa keuntungan margin profit produk digital?", options: ["Sama dengan produk fisik", "Margin rendah karena pajak", "Margin tinggi karena tanpa stok fisik", "Tergantung kurs dollar", "Hampir nol karena biaya server"], correct: 2 },
+      { q: "Mengapa memiliki database (WA/Email) itu penting?", options: ["Biar HP terlihat ramai", "Aset digital yang kita kontrol penuh", "Supaya bisa spam setiap jam", "Biar terlihat profesional saja", "Syarat untuk jualan di mall"], correct: 1 },
+      { q: "Tujuan utama 'A/B Testing' pada Landing Page adalah...", options: ["Mempersulit tim IT", "Mencari versi halaman yang paling tinggi konversinya", "Mengganti domain setiap hari", "Menambah beban server", "Memberikan pilihan warna ke pembeli"], correct: 1 },
+      { q: "Affiliate Marketing bekerja dengan cara...", options: ["Membayar gaji karyawan bulanan", "Memberi komisi per penjualan yang berhasil", "Menjual data pelanggan", "Menghapus produk orang lain", "Membeli lisensi sekali bayar"], correct: 1 },
+      { q: "Apa itu 'Customer Avatar'?", options: ["Foto profil pembeli", "Profil detail karakter target pembeli ideal", "Nama asisten toko virtual", "Gambar maskot produk", "Admin grup WhatsApp"], correct: 1 },
+      { q: "Bagaimana cara menangani ulasan buruk pembeli?", options: ["Blokir pembeli tersebut", "Evaluasi produk dan perbaiki kualitas", "Hapus komentar negatif", "Marah-marah di sosial media", "Mengganti nama produk baru"], correct: 1 },
+      { q: "Apa fungsi 'Hook' dalam konten sosial media?", options: ["Pancingan audiens di 3 detik pertama", "Cara menutup penjualan", "Link untuk pembayaran", "Cara membagikan file", "Nama kategori produk"], correct: 0 },
+      { q: "Strategi 'Bundling' berarti...", options: ["Menjual produk satu per satu", "Menggabungkan beberapa produk jadi satu harga hemat", "Memberikan semua produk gratis", "Menghapus bonus produk", "Membatasi akses pembeli"], correct: 1 },
+      { q: "Kunci sukses jualan digital jangka panjang adalah...", options: ["Satu kali jualan lalu kabur", "Terus berinovasi dan menambah nilai bagi pembeli", "Nunggu trend viral saja", "Membeli iklan paling mahal tanpa riset", "Menurunkan harga sampai paling murah"], correct: 1 }
+    ];
+
+    const motivasiList = [
+      "Kesuksesan adalah kumpulan usaha kecil yang diulang hari demi hari.",
+      "Jangan menunggu sempurna untuk mulai, tapi mulailah untuk menjadi sempurna.",
+      "Produk digitalmu adalah solusi bagi ribuan orang di luar sana.",
+      "Satu klik hari ini bisa menjadi ribuan cuan di masa depan."
+    ];
+
+    // --- NAVIGATION ---
+    function navigateTo(pageId) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      const target = document.getElementById('page-' + pageId);
+      if (target) target.classList.add('active');
+      window.scrollTo(0, 0);
+
+      if (pageId === 'panduan') renderPanduan();
+      if (pageId === 'links') renderLinks();
+      if (pageId === 'affiliate') renderAffiliate();
+      if (pageId === 'quiz') startQuiz();
+    }
+
+    // --- PANDUAN LOGIC ---
+    function renderPanduan() {
+      const container = document.getElementById('panduan-container');
+      container.innerHTML = '';
+      Object.entries(panduanData).forEach(([cat, items]) => {
+        let html = `<h3 class="text-xs font-black text-slate-400 uppercase mb-4 mt-6 px-2">${cat}</h3>`;
+        items.forEach(v => {
+          html += `
+            <div onclick="window.open('https://www.youtube.com/watch?v=${v.id}', '_blank')" class="subcategory-item flex justify-between items-center shadow-sm">
+              <span class="text-sm font-bold text-slate-700">${v.name}</span>
+              <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center">
+                <svg class="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+            </div>`;
+        });
+        container.innerHTML += html;
+      });
+    }
+
+    // --- RENDERING OTHERS ---
+    function renderLinks() {
+      const container = document.getElementById('links-container');
+      const entries = Object.entries(linksData);
+
+      if (entries.length === 0) {
+        container.innerHTML = `<div class="text-center py-10"><p class="text-slate-400 text-sm font-bold">Katalog produk sedang kosong.</p></div>`;
+        return;
+      }
+
+      container.innerHTML = `<div id="links-grid" class="grid grid-cols-2 gap-4"></div>`;
+      entries.forEach(([name, data]) => {
+        document.getElementById('links-grid').innerHTML += `<div onclick="showSubLinks('${name}')" class="card-item shadow-sm"><div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-4 text-2xl" style="background: ${data.color}15; color: ${data.color}">${data.icon}</div><span class="text-xs font-black text-slate-800">${name}</span></div>`;
+      });
+    }
+
+    function showSubLinks(catName) {
+      const cat = linksData[catName];
+      let html = `<button onclick="renderLinks()" class="mb-6 text-xs font-black text-blue-600 flex items-center"><svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg> Kembali</button><h2 class="text-xl font-black mb-6 px-2">${catName}</h2>`;
+      cat.items.forEach(item => {
+        html += `<div onclick="window.open('${item.url}','_blank')" class="product-item flex justify-between items-center shadow-sm"><span class="text-sm font-bold text-slate-700">${item.name}</span><svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg></div>`;
+      });
+      document.getElementById('links-container').innerHTML = html;
+    }
+
+    function renderAffiliate() {
+      const container = document.getElementById('affiliate-container');
+      container.innerHTML = '';
+      affiliateData.forEach(tool => {
+        container.innerHTML += `
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 mb-4 overflow-hidden relative group hover:border-slate-300 transition-all">
+          <div class="absolute top-0 right-0 bg-emerald-600 text-white text-[10px] font-bold px-3 py-1 rounded-bl-xl shadow-sm z-10">
+            Komisi ${tool.commission}%
+          </div>
+          <div class="p-5">
+            <div class="flex items-start">
+              <div class="w-12 h-12 bg-slate-50 rounded-lg border border-slate-100 flex items-center justify-center text-2xl shadow-inner flex-shrink-0">
+                ${tool.icon}
+              </div>
+              <div class="ml-4 flex-1 min-w-0 pr-2 pt-1">
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 block">${tool.tag}</span>
+                <h4 class="text-sm font-bold text-slate-800 leading-snug break-words pr-12">
+                  ${tool.name}
+                  <button onclick="copyToClipboard('${tool.name}')" class="inline-flex items-center justify-center ml-1 text-slate-400 hover:text-blue-600 transition-colors align-middle" title="Salin Nama">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                  </button>
+                </h4>
+              </div>
+            </div>
+            
+            <div class="mt-4 pt-4 border-t border-slate-50">
+              <p class="text-xs text-slate-600 leading-relaxed mb-4 font-medium hidden">${tool.desc}</p>
+              <button onclick="window.open('${tool.url}','_blank')" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-2.5 rounded-lg text-xs shadow-lg flex items-center justify-center gap-2 active:scale-[0.98] transition-all">
+                Lihat Katalog <svg class="w-3 h-3 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>`;
+      });
+    }
+
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Nama produk disalin: ' + text);
+      }).catch(err => {
+        console.error('Gagal menyalin: ', err);
+      });
+    }
+
+    // --- QUIZ LOGIC ---
+    let qState = { current: 0, score: 0 };
+    function startQuiz() { qState = { current: 0, score: 0 }; showQuestion(); }
+    function showQuestion() {
+      const body = document.getElementById('quiz-body');
+      const q = quizData[qState.current];
+      const alpha = ['A', 'B', 'C', 'D', 'E'];
+      let html = `<div class="mb-4 flex items-center justify-between"><span class="text-[10px] font-black bg-rose-50 text-rose-600 px-4 py-1 rounded-full uppercase">Pertanyaan ${qState.current + 1} / ${quizData.length}</span><span class="text-[10px] font-bold text-slate-400">Score: ${qState.score}</span></div><div class="w-full bg-slate-200 h-1.5 rounded-full mb-10 overflow-hidden"><div class="bg-rose-500 h-full transition-all duration-300" style="width: ${(qState.current / quizData.length) * 100}%"></div></div><h3 class="text-xl font-black text-slate-800 mb-10 leading-tight text-center">${q.q}</h3><div class="space-y-3">`;
+      q.options.forEach((opt, idx) => {
+        html += `<button onclick="answerQuiz(${idx})" class="w-full text-left p-5 bg-white border-2 border-slate-50 rounded-2xl text-xs font-bold text-slate-700 hover:border-rose-500 shadow-sm transition-all flex items-center gap-4 active:scale-95"><span class="w-8 h-8 rounded-lg bg-slate-50 text-slate-400 flex items-center justify-center border border-slate-100 flex-shrink-0 font-black">${alpha[idx]}</span><span>${opt}</span></button>`;
+      });
+      body.innerHTML = html + `</div>`;
+    }
+    function answerQuiz(idx) {
+      if (idx === quizData[qState.current].correct) qState.score++;
+      if (qState.current < quizData.length - 1) { qState.current++; showQuestion(); } else { showResults(); }
+    }
+    function showResults() {
+      const body = document.getElementById('quiz-body');
+      const perc = Math.round((qState.score / quizData.length) * 100);
+      let msg = perc >= 90 ? "Master Digital! Anda sangat siap sukses." : perc >= 70 ? "Pebisnis Handal! Fondasi Anda sangat kuat." : perc >= 50 ? "Lumayan! Anda butuh riset lebih dalam lagi." : "Terus Belajar! Fokuslah pada fundamental marketing.";
+      body.innerHTML = `<div class="flex-grow flex flex-col items-center justify-center text-center"><div class="text-7xl mb-6">🏆</div><h2 class="text-2xl font-black text-slate-800 mb-2">Simulasi Selesai!</h2><p class="text-slate-500 text-sm mb-10 px-4">${msg}</p><div class="relative w-48 h-48 mb-12"><svg class="w-full h-full transform -rotate-90"><circle cx="96" cy="96" r="85" stroke="#f1f5f9" stroke-width="15" fill="transparent" /><circle cx="96" cy="96" r="85" stroke="#f43f5e" stroke-width="15" fill="transparent" stroke-dasharray="534" stroke-dashoffset="${534 - (perc / 100) * 534}" stroke-linecap="round" class="transition-all duration-1000" /></svg><div class="absolute inset-0 flex flex-col items-center justify-center"><span class="text-4xl font-black text-rose-600">${perc}%</span><span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Peluang Sukses</span></div></div><button onclick="startQuiz()" class="bg-slate-900 text-white font-bold py-5 px-14 rounded-2xl shadow-xl active:scale-95 transition-all">Ulangi Simulasi</button></div>`;
+    }
+
+    // --- SYSTEM ---
+    function updateDashboard() {
+      const now = new Date();
+      if (document.getElementById('time-display')) document.getElementById('time-display').textContent = now.toLocaleTimeString('id-ID');
+      if (document.getElementById('date-display')) {
+        const opt = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+        document.getElementById('date-display').textContent = now.toLocaleDateString('id-ID', opt);
+      }
+    }
+
+    const quotes = [
+      "Maka sesungguhnya bersama kesulitan ada kemudahan. (QS. Al-Insyirah: 5)",
+      "Dunia ini ibarat bayangan. Kalau kau berusaha menangkapnya, ia akan lari. Tapi kalau kau membelakanginya, ia tak punya pilihan selain mengikutimu. (Ibnu Qayyim)",
+      "Jangan menjelaskan tentang dirimu kepada siapapun, karena yang menyukaimu tidak butuh itu, dan yang membencimu tidak percaya itu. (Ali bin Abi Thalib)",
+      "Balas dendam terbaik adalah menjadikan dirimu lebih baik. (Ali bin Abi Thalib)",
+      "Ilmu tanpa amal adalah gila, dan amal tanpa ilmu adalah sia-sia. (Imam Ghazali)",
+      "Kesuksesan bukan akhir, kegagalan bukan fatal: keberanian untuk melanjutkan yang paling penting. (Winston Churchill)",
+      "Satu-satunya cara melakukan pekerjaan besar adalah mencintai apa yang Anda lakukan. (Steve Jobs)",
+      "Jangan menunggu peluang, ciptakanlah. (George Bernard Shaw)",
+      "Mulai dari mana Anda berada. Gunakan apa yang Anda miliki. Lakukan apa yang Anda bisa. (Arthur Ashe)",
+      "Optimisme adalah kepercayaan yang mengarah pada pencapaian. (Helen Keller)",
+      "Allah tidak membebani seseorang melainkan sesuai dengan kesanggupannya. (QS. Al-Baqarah: 286)",
+      "Barangsiapa bertakwa kepada Allah niscaya Dia akan mengadakan baginya jalan keluar. (QS. At-Talaq: 2)",
+      "Kekayaan bukanlah dengan banyaknya harta, namun kekayaan adalah kekayaan hati. (HR. Bukhari & Muslim)",
+      "Sebaik-baik manusia adalah yang paling bermanfaat bagi manusia lainnya. (HR. Ahmad)",
+      "Janganlah kamu berduka cita, sesungguhnya Allah bersama kita. (QS. At-Taubah: 40)",
+      "Pendidikan adalah senjata paling ampuh untuk mengubah dunia. (Nelson Mandela)",
+      "Visi tanpa eksekusi adalah halusinasi. (Thomas Edison)",
+      "Sukses adalah berjalan dari satu kegagalan ke kegagalan lain tanpa kehilangan antusiasme. (Winston Churchill)",
+      "Orang yang tak pernah membuat kesalahan adalah orang yang tak pernah mencoba sesuatu yang baru. (Albert Einstein)",
+      "Waktu adalah uang. (Benjamin Franklin)",
+      "Sabar itu ada dua: sabar terhadap sesuatu yang kau benci, dan sabar terhadap apa yang kau sukai. (Ali bin Abi Thalib)",
+      "Hiduplah seakan-akan kau akan mati besok. Belajarlah seakan-akan kau akan hidup selamanya. (Mahatma Gandhi)",
+      "Usaha tidak akan mengkhianati hasil.",
+      "Jangan biarkan hari kemarin menyita terlalu banyak hari ini. (Will Rogers)",
+      "Anda tidak pernah terlalu tua untuk menetapkan tujuan lain atau memimpikan impian baru. (C.S. Lewis)",
+      "Hidup adalah 10% apa yang terjadi pada Anda dan 90% bagaimana Anda bereaksi terhadapnya. (Charles R. Swindoll)",
+      "Jadilah perubahan yang ingin Anda lihat di dunia. (Mahatma Gandhi)",
+      "Kesabaran adalah kunci kegembiraan. (Rumi)",
+      "Jangan bersedih, sesungguhnya pertolongan akan datang bersama kesabaran. (HR. Ahmad)",
+      "Tiga hal yang menyelamatkan: Takwa kepada Allah, berkata benar, dan sederhana dalam kekayaan dan kemiskinan. (HR. Baihaqi)"
+    ];
+
+    function getDailyQuote() {
+      const today = new Date();
+      const start = new Date(today.getFullYear(), 0, 0);
+      const diff = today - start;
+      const oneDay = 1000 * 60 * 60 * 24;
+      const dayOfYear = Math.floor(diff / oneDay);
+      return quotes[dayOfYear % quotes.length];
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      setInterval(updateDashboard, 1000);
+      updateDashboard();
+      document.getElementById('daily-motivation').textContent = getDailyQuote();
+    });
+  </script>
+</body>
+
+</html>
